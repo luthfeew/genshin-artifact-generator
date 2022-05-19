@@ -54,11 +54,6 @@ def calculate(input, stat, cmd):
         all_arrays.append(output)
         print(output)
 
-        test = dict(Counter(output))
-        for key, value in test.items():
-            print(key, value, sep=',', end=' ', flush=True)
-        print()
-
 print('Welcome to GI Artifact Number Calculator! (Enter to skip)')
 while True:
     print('==========================================================')
@@ -73,6 +68,16 @@ while True:
     calculate(input("Input HP: "), FLAT_HP, FLAT_HP_CMD)
     calculate(input("Input DEF: "), FLAT_DEF, FLAT_DEF_CMD)
     print('==========================================================')
-    print(all_arrays)
-    print('==========================================================')
+    flat_list = []
+    for sublist in all_arrays:
+        for item in sublist:
+            flat_list.append(item)
+
+    test = dict(Counter(flat_list))
+    for key, value in test.items():
+        if value > 1:
+            print(key, value, sep=',', end=' ', flush=True)
+        else:
+            print(key, end=' ', flush=True)
+    print('\n==========================================================')
     input('Press any key to recalculate...')
