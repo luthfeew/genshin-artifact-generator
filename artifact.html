@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Artifact Command Generator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <py-env>
+        - numpy
+        - matplotlib
+    </py-env>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container mt-3">
+        <div class="mt-4 p-5 bg-primary text-white rounded">
+            <h1>Artifact Command Generator</h1>
+            <div class="alert alert-warning d-flex align-items-center" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                    class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img"
+                    aria-label="Warning:">
+                    <path
+                        d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                </svg>
+                <div>
+                    This tool is still in development.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-sm pt-3">
+
+        <form>
+            <div class="row mb-3">
+                <label for="uid" class="col-sm-2 col-form-label text-end">UID</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="uid">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="inputCR" class="col-sm-3 col-form-label text-end">CRIT Rate</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="inputCR">
+                </div>
+                <label for="inputCD" class="col-sm-3 col-form-label text-end">CRIT DMG</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="inputCD">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputER" class="col-sm-3 col-form-label text-end">Energy Recharge</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="inputER">
+                </div>
+                <label for="inputEM" class="col-sm-3 col-form-label text-end">Elemental Mastery</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="inputEM">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputFlatATK" class="col-sm-3 col-form-label text-end">ATK</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="inputFlatATK">
+                </div>
+                <label for="inputATK" class="col-sm-3 col-form-label text-end">ATK %</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="inputATK">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputFlatHP" class="col-sm-3 col-form-label text-end">HP</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="inputFlatHP">
+                </div>
+                <label for="inputHP" class="col-sm-3 col-form-label text-end">HP %</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="inputHP">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputFlatDEF" class="col-sm-3 col-form-label text-end">DEF</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="inputFlatDEF">
+                </div>
+                <label for="inputDEF" class="col-sm-3 col-form-label text-end">DEF %</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="inputDEF">
+                </div>
+            </div>
+
+            <div class="text-center pt-2">
+                <button id="calculate" type="button" class="btn btn-primary" pys-onClick="calculate">Calculate</button>
+                <button id="clar" type="button" class="btn btn-danger" pys-onClick="clear">Clear</button>
+            </div>
+
+        </form>
+
+        <p id="output" class="pt-2"></p>
+
+    </div>
+
+</body>
+
+<py-script>
+    import math
+    import numpy as np
+
+    CR = [3.9, 3.5, 3.1, 2.7]
+    CD = [7.8, 7.0, 6.2, 5.4]
+    ATK = [5.8, 5.2, 4.7, 4.1]
+    EM = [23, 21, 19, 16]
+    ER = [6.5, 5.8, 5.2, 4.5]
+    HP = [5.8, 5.2, 4.7, 4.1]
+    DEF = [7.3, 6.6, 5.8, 5.1]
+    FLAT_ATK = [19, 18, 16, 14]
+    FLAT_HP = [299, 269, 239, 209]
+    FLAT_DEF = [23, 21, 19, 16]
+
+    uid = Element("uid")
+    hasil = Element("output")
+    input_cr = Element("inputCR")
+    input_cd = Element("inputCD")
+    input_flat_hp = Element("inputFlatHP")
+    input_hp = Element("inputHP")
+    input_flat_atk = Element("inputFlatATK")
+    input_atk = Element("inputATK")
+    input_flat_def = Element("inputFlatDEF")
+    input_def = Element("inputDEF")
+    input_er = Element("inputER")
+    input_em = Element("inputEM")
+
+    def calculate(*args, **kwargs):
+        all_arrays = []
+        def calc(input, stat):
+            if input:
+                input = float(input)
+                div = input / max(stat)
+                med = input / int(math.ceil(div))
+
+                def find_nearest(array, value):
+                    array = np.asarray(array)
+                    idx = (np.abs(array - value)).argmin()
+                    return array[idx]
+
+                output = []
+                while div > 1:
+                    output.append(find_nearest(stat, med))
+                    input = input - find_nearest(stat, med)
+                    div = div - 1
+                while input >= min(stat):
+                    output.append(find_nearest(stat, input))
+                    input = input - find_nearest(stat, input)
+
+                output.sort(reverse=True)
+                all_arrays.append(output)
+
+        calc(input_cr.value, CR)
+        calc(input_cd.value, CD)
+        calc(input_flat_hp.value, FLAT_HP)
+        calc(input_hp.value, HP)
+        calc(input_flat_atk.value, FLAT_ATK)
+        calc(input_atk.value, ATK)
+        calc(input_flat_def.value, FLAT_DEF)
+        calc(input_def.value, DEF)
+        calc(input_er.value, ER)
+        calc(input_em.value, EM)
+        hasil.write(all_arrays)
+
+    def clear(*args, **kwargs):
+        uid.clear()
+        input_cr.clear()
+        input_cd.clear()
+        input_flat_hp.clear()
+        input_hp.clear()
+        input_flat_atk.clear()
+        input_atk.clear()
+        input_flat_def.clear()
+        input_def.clear()
+        input_er.clear()
+        input_em.clear()
+        hasil.clear()
+</py-script>
+
+</html>
