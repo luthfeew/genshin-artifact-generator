@@ -24,6 +24,28 @@ FLAT_ATK_CMD = [501054, 501053, 501052, 501051]
 FLAT_HP_CMD = [501024, 501023, 501022, 501021]
 FLAT_DEF_CMD = [501084, 501083, 501082, 501081]
 
+MAIN_STAT = {
+    10001: "HP",
+    10002: "HP Percentage",
+    10003: "ATK",
+    10004: "ATK Percentage",
+    10005: "DEF",
+    10006: "DEF Percentage",
+    10007: "Energy Recharge",
+    10008: "Elemental Mastery",
+    13007: "Crit Rate",
+    13008: "Crit Damage",
+    12009: "Healing Bonus",
+    15008: "Pyro DMG Bonus",
+    15009: "Electro DMG Bonus",
+    15010: "Cryo DMG Bonus",
+    15011: "Hydro DMG Bonus",
+    15012: "Anemo DMG Bonus",
+    15013: "Geo DMG Bonus",
+    15014: "Dendro DMG Bonus",
+    15015: "Physical DMG Bonus",
+}
+
 all_arrays = []
 
 
