@@ -25,12 +25,14 @@ FLAT_HP_CMD = [501024, 501023, 501022, 501021]
 FLAT_DEF_CMD = [501084, 501083, 501082, 501081]
 
 all_arrays = []
+
+
 def calculate(input, stat, cmd):
     if input:
         input = float(input)
         div = input / max(stat)
         med = input / int(math.ceil(div))
-            
+
         def find_nearest(array, value):
             array = np.asarray(array)
             idx = (np.abs(array - value)).argmin()
@@ -54,6 +56,7 @@ def calculate(input, stat, cmd):
         all_arrays.append(output)
         print(output)
 
+
 print('Welcome to GI Artifact Number Calculator! (Enter to skip)')
 while True:
     print('==========================================================')
@@ -73,11 +76,13 @@ while True:
         for item in sublist:
             flat_list.append(item)
 
-    test = dict(Counter(flat_list))
-    for key, value in test.items():
+    count = dict(Counter(flat_list))
+    cmd = ''
+    for key, value in count.items():
         if value > 1:
-            print(key, value, sep=',', end=' ', flush=True)
+            cmd += (str(key) + ',' + str(value) + ' ')
         else:
-            print(key, end=' ', flush=True)
-    print('\n==========================================================')
+            cmd += (str(key) + ' ')
+    print(cmd)
+    print('==========================================================')
     input('Press any key to recalculate...')
