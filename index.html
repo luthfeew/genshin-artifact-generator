@@ -53,7 +53,9 @@
         <div class="row mb-3">
             <label for="main_stat" class="col col-form-label text-end">Main Stat</label>
             <div class="col">
-                <input type="text" class="form-control" id="main_stat" disabled placeholder="Soon™">
+                <select class="form-select" id="main_stat">
+                    <option value="0" selected>-</option>
+                </select>
             </div>
             <div class="col-3"></div>
         </div>
@@ -71,13 +73,13 @@
         <hr>
 
         <div class="row mb-3">
-            <label for="inputCD" class="col col-form-label text-end">CRIT DMG</label>
-            <div class="col">
-                <input type="text" class="form-control" id="inputCD">
-            </div>
             <label for="inputCR" class="col col-form-label text-end">CRIT Rate</label>
             <div class="col">
                 <input type="text" class="form-control" id="inputCR">
+            </div>
+            <label for="inputCD" class="col col-form-label text-end">CRIT DMG</label>
+            <div class="col">
+                <input type="text" class="form-control" id="inputCD">
             </div>
         </div>
         <div class="row mb-3">

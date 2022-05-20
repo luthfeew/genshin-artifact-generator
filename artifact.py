@@ -1,6 +1,7 @@
 import math
 import numpy as np
 from collections import Counter
+from js import window
 
 uid = Element("uid")
 hasil = Element("output")
@@ -15,6 +16,7 @@ input_def = Element("inputDEF")
 input_er = Element("inputER")
 input_em = Element("inputEM")
 input_level = Element("level")
+input_main_stat = Element("main_stat")
 
 CR = [3.9, 3.5, 3.1, 2.7]
 CD = [7.8, 7.0, 6.2, 5.4]
@@ -58,6 +60,13 @@ MAIN_STAT = {
     15015: "Physical DMG Bonus",
 }
 
+for x, y in MAIN_STAT.items():
+    option = window.document.createElement("option")
+    option.value = x
+    option.text = y
+    # console.log(option)
+    input_main_stat.element.appendChild(option)
+
 
 def calculate(*args, **kwargs):
     all_arrays = []
@@ -100,13 +109,17 @@ def calculate(*args, **kwargs):
     calc(input_def.value, DEF, DEF_CMD)
     calc(input_er.value, ER, ER_CMD)
     calc(input_em.value, EM, EM_CMD)
+    if len(all_arrays) > 4 or int(input_main_stat.value) == 0:
+        hasil.element.innerHTML = "Invalid Artifact! (Please [select a main stat] and [max 4 sub stats])"
+        return
     flat_list = []
     for sublist in all_arrays:
         for item in sublist:
             flat_list.append(item)
 
     count = dict(Counter(flat_list))
-    cmd = '/gart xxxxx xxxxx '
+    cmd = '/gart xxxxx '
+    cmd += str(input_main_stat.value) + ' '
     for key, value in count.items():
         if value > 1:
             cmd += (str(key) + ',' + str(value) + ' ')
@@ -129,4 +142,6 @@ def clear(*args, **kwargs):
     input_def.clear()
     input_er.clear()
     input_em.clear()
+    input_level.element.value = 20
+    input_main_stat.element.selectedIndex = 0
     hasil.clear()
