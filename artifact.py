@@ -64,7 +64,6 @@ for x, y in MAIN_STAT.items():
     option = window.document.createElement("option")
     option.value = x
     option.text = y
-    # console.log(option)
     input_main_stat.element.appendChild(option)
 
 
@@ -128,7 +127,7 @@ def calculate(*args, **kwargs):
 
     lvl = int(input_level.value) + 1
     cmd += str(lvl)
-    hasil.write(cmd)
+    hasil.element.value = cmd
 
 
 def clear(*args, **kwargs):

@@ -1,136 +1,206 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <title>Artifact Command Generator</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <title>Artifact Command Generator</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     <py-env>
         - numpy
     </py-env>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 
 <body>
 
     <py-script src="./artifact.py"></py-script>
 
-    <div class="container mt-3">
-        <div class="mt-4 p-5 bg-primary text-white rounded">
-            <h1>Artifact Command Generator</h1>
-            <div class="alert alert-warning d-flex align-items-center" role="alert">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                    class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img"
-                    aria-label="Warning:">
-                    <path
-                        d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                </svg>
-                <div>
-                    This tool is still in development.
+    <section class="hero is-link">
+        <div class="hero-body">
+            <p class="title">
+                Artifact Command Generator
+                <span class="tag is-warning">BETA</span>
+            </p>
+            <p class="subtitle">
+                Link subtitle
+            </p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+
+            <div class="columns is-mobile is-centered">
+                <div class="column is-two-fifths">
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Artifact</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-rounded" type="text" disabled placeholder="Soon™">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="container-sm pt-3">
+            <div class="columns is-mobile is-centered">
+                <div class="column is-two-fifths">
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Part</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-rounded" type="text" disabled placeholder="Soon™">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="row mb-3">
-            <label for="artifact" class="col col-form-label text-end">Artifact</label>
-            <div class="col">
-                <input type="text" class="form-control" id="artifact" disabled placeholder="Soon™">
+            <div class="columns is-mobile is-centered">
+                <div class="column is-two-fifths">
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Main Stat</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field is-narrow">
+                                <div class="control">
+                                    <div class="select is-rounded is-fullwidth">
+                                        <select id="main_stat">
+                                            <option value="0" selected>-</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-3"></div>
-        </div>
-        <div class="row mb-3">
-            <label for="part" class="col col-form-label text-end">Part</label>
-            <div class="col">
-                <input type="text" class="form-control" id="part" disabled placeholder="Soon™">
-            </div>
-            <div class="col-3"></div>
-        </div>
-        <div class="row mb-3">
-            <label for="main_stat" class="col col-form-label text-end">Main Stat</label>
-            <div class="col">
-                <select class="form-select" id="main_stat">
-                    <option value="0" selected>-</option>
-                </select>
-            </div>
-            <div class="col-3"></div>
-        </div>
-        <div class="row mb-3">
-            <label for="level" class="col col-form-label text-end">Level</label>
-            <div class="col">
-                <input type="number" class="form-control" id="level" value="20" min="1" max="20">
-            </div>
-            <label for="star" class="col col-form-label text-end">Stars</label>
-            <div class="col">
-                <input type="text" class="form-control" id="star" disabled placeholder="Soon™">
-            </div>
-        </div>
 
-        <hr>
+            <div class="columns is-mobile is-centered">
+                <div class="column is-one-fifth">
+                    <div class="columns is-vcentered">
+                        <div class="column has-text-right"><strong>Level</strong></div>
+                        <div class="column"><input class="input is-rounded" type="number" value="20" min="1"
+                                max="20" id="level"></div>
+                    </div>
+                </div>
+                <div class="column is-one-fifth">
+                    <div class="columns is-vcentered">
+                        <div class="column has-text-right"><strong>Stars</strong></div>
+                        <div class="column"><input class="input is-rounded" type="text" disabled placeholder="Soon™">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="row mb-3">
-            <label for="inputCR" class="col col-form-label text-end">CRIT Rate</label>
-            <div class="col">
-                <input type="text" class="form-control" id="inputCR">
-            </div>
-            <label for="inputCD" class="col col-form-label text-end">CRIT DMG</label>
-            <div class="col">
-                <input type="text" class="form-control" id="inputCD">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="inputER" class="col col-form-label text-end">Energy Recharge</label>
-            <div class="col">
-                <input type="text" class="form-control" id="inputER">
-            </div>
-            <label for="inputEM" class="col col-form-label text-end">Elemental Mastery</label>
-            <div class="col">
-                <input type="text" class="form-control" id="inputEM">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="inputFlatATK" class="col col-form-label text-end">ATK</label>
-            <div class="col">
-                <input type="text" class="form-control" id="inputFlatATK">
-            </div>
-            <label for="inputATK" class="col col-form-label text-end">ATK %</label>
-            <div class="col">
-                <input type="text" class="form-control" id="inputATK">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="inputFlatHP" class="col col-form-label text-end">HP</label>
-            <div class="col">
-                <input type="text" class="form-control" id="inputFlatHP">
-            </div>
-            <label for="inputHP" class="col col-form-label text-end">HP %</label>
-            <div class="col">
-                <input type="text" class="form-control" id="inputHP">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="inputFlatDEF" class="col col-form-label text-end">DEF</label>
-            <div class="col">
-                <input type="text" class="form-control" id="inputFlatDEF">
-            </div>
-            <label for="inputDEF" class="col col-form-label text-end">DEF %</label>
-            <div class="col">
-                <input type="text" class="form-control" id="inputDEF">
-            </div>
-        </div>
+            <hr>
 
-        <div class="text-center pt-2">
-            <button id="calculate" type="button" class="btn btn-primary" pys-onClick="calculate">Calculate</button>
-            <button id="clear" type="button" class="btn btn-danger" pys-onClick="clear">Clear</button>
+            <div class="columns is-mobile is-centered">
+                <div class="column is-one-fifth">
+                    <div class="columns is-vcentered">
+                        <div class="column has-text-right"><strong>CRIT Rate</strong></div>
+                        <div class="column"><input class="input is-rounded" type="text" id="inputCR"></div>
+                    </div>
+                </div>
+                <div class="column is-one-fifth">
+                    <div class="columns is-vcentered">
+                        <div class="column has-text-right"><strong>CRIT DMG</strong></div>
+                        <div class="column"><input class="input is-rounded" type="text" id="inputCD"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns is-mobile is-centered">
+                <div class="column is-one-fifth">
+                    <div class="columns is-vcentered">
+                        <div class="column has-text-right"><strong>Energy Recharge</strong></div>
+                        <div class="column"><input class="input is-rounded" type="text" id="inputER"></div>
+                    </div>
+                </div>
+                <div class="column is-one-fifth">
+                    <div class="columns is-vcentered">
+                        <div class="column has-text-right"><strong>Elemental Mastery</strong></div>
+                        <div class="column"><input class="input is-rounded" type="text" id="inputEM"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns is-mobile is-centered">
+                <div class="column is-one-fifth">
+                    <div class="columns is-vcentered">
+                        <div class="column has-text-right"><strong>ATK</strong></div>
+                        <div class="column"><input class="input is-rounded" type="text" id="inputFlatATK"></div>
+                    </div>
+                </div>
+                <div class="column is-one-fifth">
+                    <div class="columns is-vcentered">
+                        <div class="column has-text-right"><strong>ATK %</strong></div>
+                        <div class="column"><input class="input is-rounded" type="text" id="inputATK"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns is-mobile is-centered">
+                <div class="column is-one-fifth">
+                    <div class="columns is-vcentered">
+                        <div class="column has-text-right"><strong>HP</strong></div>
+                        <div class="column"><input class="input is-rounded" type="text" id="inputFlatHP"></div>
+                    </div>
+                </div>
+                <div class="column is-one-fifth">
+                    <div class="columns is-vcentered">
+                        <div class="column has-text-right"><strong>HP %</strong></div>
+                        <div class="column"><input class="input is-rounded" type="text" id="inputHP"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns is-mobile is-centered">
+                <div class="column is-one-fifth">
+                    <div class="columns is-vcentered">
+                        <div class="column has-text-right"><strong>DEF</strong></div>
+                        <div class="column"><input class="input is-rounded" type="text" id="inputFlatDEF"></div>
+                    </div>
+                </div>
+                <div class="column is-one-fifth">
+                    <div class="columns is-vcentered">
+                        <div class="column has-text-right"><strong>DEF %</strong></div>
+                        <div class="column"><input class="input is-rounded" type="text" id="inputDEF"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns is-mobile is-centered">
+                <div class="column is-two-fifths has-text-centered">
+                    <button class="button is-primary is-rounded" id="calculate" pys-onClick="calculate">Generate</button>
+                    <button class="button is-danger is-rounded" id="clear" pys-onClick="clear">Reset</button>
+                </div>
+            </div>
+
+            <input class="input is-rounded" type="text" placeholder="Rounded input" id="output">
+
         </div>
+    </section>
 
-        <p id="output" class="pt-2"></p>
-
-    </div>
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Artifact Command Generator</strong> by <a href="#">TahuBulat</a>. The source code is licensed
+                <a href="https://choosealicense.com/licenses/gpl-3.0/" target="_blank">GNU GPLv3</a>.
+            </p>
+        </div>
+    </footer>
 
 </body>
 
