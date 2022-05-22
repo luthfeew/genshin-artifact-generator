@@ -109,7 +109,7 @@ def calculate(*args, **kwargs):
     calc(input_er.value, ER, ER_CMD)
     calc(input_em.value, EM, EM_CMD)
     if len(all_arrays) > 4 or int(input_main_stat.value) == 0:
-        hasil.element.innerHTML = "Invalid Artifact! (Please [select a main stat] and [max 4 sub stats])"
+        hasil.element.value = "Invalid Artifact! (Please [select a main stat] and [max 4 sub stats])"
         return
     flat_list = []
     for sublist in all_arrays:
