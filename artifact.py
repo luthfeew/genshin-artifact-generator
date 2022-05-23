@@ -28,7 +28,7 @@ EM = [23, 21, 19, 16]
 ER = [6.5, 5.8, 5.2, 4.5]
 HP = [5.8, 5.2, 4.7, 4.1]
 DEF = [7.3, 6.6, 5.8, 5.1]
-FLAT_ATK = [19, 18, 16, 14]
+FLAT_ATK = [19.45, 17.51, 15.56, 13.62]
 FLAT_HP = [299, 269, 239, 209]
 FLAT_DEF = [23, 21, 19, 16]
 CD_CMD = [501224, 501223, 501222, 501221]
@@ -137,8 +137,9 @@ def calculate(*args, **kwargs):
         if input:
             input = float(input)
             div = input / max(stat)
-            x = str(div).split('.')[1][:1]
-            if x == '0':
+
+            x = str(div).split('.')[1][:2]
+            if int(x) < 8:
                 med = input / round(div)
             else:
                 med = input / int(math.ceil(div))
@@ -158,7 +159,7 @@ def calculate(*args, **kwargs):
                 output.append(find_command(stat, med))
                 input = input - find_nearest(stat, med)
                 div = div - 1
-            while input >= min(stat):
+            while input >= (min(stat) - 1):
                 output.append(find_command(stat, input))
                 input = input - find_nearest(stat, input)
 
