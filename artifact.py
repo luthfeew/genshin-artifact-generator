@@ -137,7 +137,11 @@ def calculate(*args, **kwargs):
         if input:
             input = float(input)
             div = input / max(stat)
-            med = input / int(math.ceil(div))
+            x = str(div).split('.')[1][:1]
+            if x == '0':
+                med = input / round(div)
+            else:
+                med = input / int(math.ceil(div))
 
             def find_nearest(array, value):
                 array = np.asarray(array)

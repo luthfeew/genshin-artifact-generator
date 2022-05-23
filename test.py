@@ -53,7 +53,11 @@ def calculate(input, stat, cmd):
     if input:
         input = float(input)
         div = input / max(stat)
-        med = input / int(math.ceil(div))
+        x = str(div).split('.')[1][:1]
+        if x == '0':
+            med = input / round(div)
+        else:
+            med = input / int(math.ceil(div))
 
         def find_nearest(array, value):
             array = np.asarray(array)
@@ -66,16 +70,21 @@ def calculate(input, stat, cmd):
             return cmd[idx]
 
         output = []
+        output2 = []
         while div > 1:
             output.append(find_command(stat, med))
+            output2.append(find_nearest(stat, med))
             input = input - find_nearest(stat, med)
             div = div - 1
         while input >= min(stat):
             output.append(find_command(stat, input))
+            output2.append(find_nearest(stat, input))
             input = input - find_nearest(stat, input)
 
         output.sort(reverse=True)
+        output2.sort(reverse=True)
         all_arrays.append(output)
+        print(output2)
         print(output)
 
 
