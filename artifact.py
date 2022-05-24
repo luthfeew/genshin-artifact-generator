@@ -3,7 +3,6 @@ import numpy as np
 from collections import Counter
 from js import window, document
 
-uid = Element("uid")
 hasil = Element("output")
 input_cr = Element("inputCR")
 input_cd = Element("inputCD")
@@ -131,6 +130,13 @@ for x, y in MAIN_STAT.items():
 
 
 def calculate(*args, **kwargs):
+    if int(input_artifact.value) == 0 or int(input_part.value) == 0:
+        hasil.element.value = "Invalid Artifact! (Please select [artifact] and [part])"
+        return
+    if int(input_level.value) < 1 or int(input_level.value) > 20 or int(input_star.value) < 3 or int(input_star.value) > 5:
+        hasil.element.value = "Invalid Artifact! (Please select [level between 1-20] and [star between 3-5])"
+        return
+
     all_arrays = []
 
     def calc(input, stat, cmd):
@@ -147,21 +153,18 @@ def calculate(*args, **kwargs):
             def find_nearest(array, value):
                 array = np.asarray(array)
                 idx = (np.abs(array - value)).argmin()
-                return array[idx]
-
-            def find_command(array, value):
-                array = np.asarray(array)
-                idx = (np.abs(array - value)).argmin()
-                return cmd[idx]
+                return [array[idx], cmd[idx]]
 
             output = []
             while div > 1:
-                output.append(find_command(stat, med))
-                input = input - find_nearest(stat, med)
+                f = find_nearest(stat, med)
+                output.append(f[1])
+                input = input - f[0]
                 div = div - 1
             while input >= (min(stat) - 1):
-                output.append(find_command(stat, input))
-                input = input - find_nearest(stat, input)
+                f = find_nearest(stat, input)
+                output.append(f[1])
+                input = input - f[0]
 
             output.sort(reverse=True)
             all_arrays.append(output)
@@ -177,14 +180,8 @@ def calculate(*args, **kwargs):
     calc(input_er.value, ER, ER_CMD)
     calc(input_em.value, EM, EM_CMD)
 
-    if int(input_artifact.value) == 0 or int(input_part.value) == 0:
-        hasil.element.value = "Invalid Artifact! (Please select [artifact] and [part])"
-        return
     if len(all_arrays) > 4 or len(all_arrays) == 0 or int(input_main_stat.value) == 0:
         hasil.element.value = "Invalid Artifact! (Please select a [main stat] and [max 4 sub stats])"
-        return
-    if int(input_level.value) < 1 or int(input_level.value) > 20 or int(input_star.value) < 3 or int(input_star.value) > 5:
-        hasil.element.value = "Invalid Artifact! (Please select [level between 1-20] and [star between 3-5])"
         return
 
     flat_list = []
@@ -197,11 +194,13 @@ def calculate(*args, **kwargs):
     cmd += str(int(input_artifact.value) + int(input_part.value) +
                (int(input_star.value) * 100)) + ' '
     cmd += str(input_main_stat.value) + ' '
+
     for key, value in count.items():
         if value > 1:
             cmd += (str(key) + ',' + str(value) + ' ')
         else:
             cmd += (str(key) + ' ')
+
     cmd += str(int(input_level.value) + 1)
     hasil.element.value = cmd
 

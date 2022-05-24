@@ -79,20 +79,27 @@ def calculate(input, stat, cmd):
             idx = (np.abs(array - value)).argmin()
             return cmd[idx]
 
+        def test(array, value):
+            array = np.asarray(array)
+            idx = (np.abs(array - value)).argmin()
+            return [array[idx], cmd[idx]]
+
         output = []
         output2 = []
         while div > 1:
             # print('input:', input)
             # print('div:', div)
-            output.append(find_command(stat, med))
-            output2.append(find_nearest(stat, med))
-            input = input - find_nearest(stat, med)
+            f = test(stat, med)
+            output.append(f[1])
+            output2.append(f[0])
+            input = input - f[0]
             div = div - 1
 
         while input >= (min(stat) - 1):
-            output.append(find_command(stat, input))
-            output2.append(find_nearest(stat, input))
-            input = input - find_nearest(stat, input)
+            f = test(stat, input)
+            output.append(f[1])
+            output2.append(f[0])
+            input = input - f[0]
 
         # print(input)
         output.sort(reverse=True)
